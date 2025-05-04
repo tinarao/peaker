@@ -97,7 +97,7 @@ pub fn decode(file_path: &str) -> Result<Vec<i16>, Err> {
             println!("Analyzed {} packets", &packet_count);
         }
 
-        if packet_count > 1000 {
+        if packet_count > 100000 {
             // Файл может быть битым - не содержать корректного EOF
             // На этот случай нужна эта отсечка - в случае
             // беды, просто крашим луп.
@@ -106,4 +106,27 @@ pub fn decode(file_path: &str) -> Result<Vec<i16>, Err> {
     }
 
     Ok(samples)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn nonexistent_file() {
+        let result = decode("non-existent.mp3");
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn wrong_format() {
+        let result = decode("wav-file.wav");
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn correct_case() {
+        let result = decode("audio.mp3");
+        assert!(result.is_ok());
+    }
 }
