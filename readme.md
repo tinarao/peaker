@@ -6,4 +6,11 @@
   </a>
 </p>
 
-Rust-driven mp3 peaks extractor build on top of Symphonia. WIP!
+# Peaker
+
+**Rust-библиотека для анализа и визуализации .mp3-аудиофайлов
+
+## Возможности
+- Декодирование mp3 -> PCM
+- Гибкая конфигурация и настройка степени сжатия.
+
